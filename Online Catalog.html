@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bismark Online T-shirt Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 20px 0;
+            font-size: 2em;
+            border-bottom: 1px dotted #000;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tshirt-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .tshirt-card img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .tshirt-card h3 {
+            margin: 10px 0;
+        }
+        .tshirt-card p {
+            color: #555;
+        }
+        .price {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+        footer p {
+            margin: 5px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bismark Online T-shirt Shop</h1>
+    <div class="container" id="tshirt-container"></div>
+
+    <script>
+        // Fetch data from the JSON file
+        fetch('MyTshirt.json')
+            .then(response => response.json()) // Ensure to return the parsed JSON
+            .then(data => {
+                const container = document.getElementById('tshirt-container');
+                
+                // Render each T-shirt card
+                data.Tshirts.forEach(tshirt => { // Access 'Tshirts' array from data
+                    const card = document.createElement('div');
+                    card.className = 'tshirt-card';
+                    card.innerHTML = `
+                        <img src="${tshirt.image}" alt="${tshirt.name}">
+                        <h3>${tshirt.name}</h3>
+                        <p>${tshirt.description}</p>
+                        <p class="price">${tshirt.price}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching the data:', error);
+            });
+    </script>
+    <footer>
+      <p>Designed by: Bismark L. De Asis</p>
+      <p>12-Cooper</p>
+    </footer>
+</body>
+</html>
